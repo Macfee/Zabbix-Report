@@ -1,0 +1,65 @@
+{{def(current_date, pic_data)}}
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_001_hello.pdf" invariant="1">
+<docinit>
+  <registerTTFont
+        faceName="msyh"
+        fileName="./font/msyh.ttf"
+    />
+    <registerTTFont
+        faceName="msyhbd"
+        fileName="./font/msyhbd.ttf"
+    />
+    <registerTTFont
+        faceName="msyhbdi"
+        fileName="./font/msyhbd.ttf"
+    />
+    <registerFontFamily
+        name="msyh"
+        normal="msyh"
+        bold="msyhbd"
+        boldItalic="msyhbd"
+    />
+</docinit>
+<template pagesize="A4" leftMargin="100" showBoundary="0">
+        <pageTemplate id="main" pagesize="A4 portrait" >
+        <pageGraphics>
+        <setFont name="msyhbd" size="8"/>
+        <drawRightString x="520" y="770"> 日期: {{ current_date }}</drawRightString>
+        <!-- <image file="./images/data/vrlogo.png" x="480" y="780" width="42.5" height="13.5"/> -->
+        <fill color="black"/>
+         <setFont name="msyhbd" size="16"/>
+                <drawRightString x="400" y="785">服务器监控指标</drawRightString>
+        </pageGraphics>
+    
+        <frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in" bottomPadding="100" />
+    
+        </pageTemplate>
+    
+</template>
+
+<stylesheet>
+        <initialize>
+        <alias id="style.normal" value="style.Normal"/>
+        </initialize>
+        <paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
+        <paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
+        <paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12" 
+                spaceBefore="12" spaceAfter="12"/>
+</stylesheet>
+
+<story >
+
+    {{for data in pic_data }}
+        <h3><font face="msyh">{{ data['name'] }}</font></h3>
+        <hr width="100%"></hr>
+        <blockTable colWidths="50% 50%">
+                   <tr>
+                        {{ for x in data['data'] }} 
+                            <td><img src="./images/{{ current_date }}/{{x}}.png" width="8cm" height="8cm" preserveAspectRatio="true" /></td>
+                        {{ endfor }}
+                    </tr>
+        </blockTable>
+    {{endfor}}
+</story>
+</document>   
