@@ -32,7 +32,7 @@ class Api:
 
 
     def fetchDataGraph(self, graph_id):
-        data = self.session.get("http://172.16.0.119/chart2.php?graphid={graph_id}&from=now-1d%2Fd&to=now-1d%2Fd&profileIdx=web.graphs.filter&profileIdx2={graph_id}&width=600&height=150&_=ube2loaa&screenid=".format(graph_id=graph_id), stream=True, headers=self.headers, cookies=self.cookie)
+        data = self.session.get("http://8.8.8.8/chart2.php?graphid={graph_id}&from=now-1d%2Fd&to=now-1d%2Fd&profileIdx=web.graphs.filter&profileIdx2={graph_id}&width=600&height=150&_=ube2loaa&screenid=".format(graph_id=graph_id), stream=True, headers=self.headers, cookies=self.cookie)
         if not os.path.exists("images/%s" % self.current_date): os.makedirs("images/%s" % self.current_date)
         with open("images/%s/%s.png" % (self.current_date, graph_id), "wb") as fd:
             for chunk in data.iter_content():       
